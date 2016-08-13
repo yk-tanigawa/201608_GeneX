@@ -150,6 +150,94 @@ $ scp your_local_file username@servername.your.university.edu:
 $ scp username@servername.your.university.edu:your_remote_file local_file_name
 ```
 
+## [2-6] [advanced] avoid typing password when you use `ssh`, `scp`
+
+
+### [2-6-0] outline
+- create a key and keyhole
+  - google "Public-key cryptography" for the details
+- transfer your keyhole (public key) to your server
+- register the keyhole to the list of keyholes on your server
+- make a configuration file to use key file when you connect to your server
+
+### [2-6-1] create a key and keyhole
+```
+$ cd ~/.ssh
+$ ssh-keygen -b 8196
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/yosuke/.ssh/id_rsa): ./keyfile
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in ./keyfile.
+Your public key has been saved in ./keyfile.pub.
+The key fingerprint is:
+3b:4d:14:3c:12:0c:86:d5:2c:fb:f6:67:0c:28:85:a1 yosuke@201506ytmlab-2.cshl.edu
+The key's randomart image is:
++--[ RSA 8196]----+
+|     o+=.o.      |
+|    ..o = o.     |
+|     . = ...     |
+|    E o ..       |
+|       oS..      |
+|      . ++.      |
+|       oo..o     |
+|         .. +    |
+|           o     |
++-----------------+
+```
+- do not forget to specify the name of key file.
+  - `./keyfile` is just an example
+  - you can change to `./yourpreferablekey`
+- type enter when you are asked to set passphrase
+  - you may add a passphrase to your key if you want to use both key and passphrase
+
+### [2-6-2] transfer your keyhole (public key) to your server
+```
+$ scp ~/.ssh/keyfile.pub username@servername.your.university.edu:
+```
+
+### [2-6-3] register the keyhole to the list of keyholes on your server
+
+- login to your server
+
+```
+$ ssh username@servername.your.university.edu
+```
+
+- add your keyhole to the list of keyholes
+
+```
+$ cat keyfile.pub >> ~/.ssh/authorized_keys
+```
+
+- assign proper permission
+
+
+```
+$ chmod 700 ~/.ssh
+$ chmod 600 ~/.ssh/authorized_keys
+```
+
+- logout from your server
+  - `CTRL + d`: logout the session
+
+### [2-6-4] make a configuration file to use key file when you connect to your server
+
+- download `config` file in this page (on the top)
+- edit the beginning part of the file
+
+```
+Host <<<nickname_of_your_server>>>
+  User <<<username>>>
+  Port 22
+  Hostname <<<servername.your.university.edu>>>
+  IdentityFile ~/.ssh/<<server>>
+  IdentitiesOnly yes
+```
+
+- place it to `~/.ssh/config`
+
+
 # [3] qlogin/qstat/qsub/qdel
 ## [3-1] qlogin -- submit an interactive login session to Oracle Grid Engine
 
