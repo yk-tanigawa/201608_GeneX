@@ -155,15 +155,15 @@ $ scp username@servername.your.university.edu:your_remote_file local_file_name
 
 `$ qlogin`
 
-## [3-2] [advanced] qstat -- show the status of Oracle Grid Engine jobs and queues
+## [3-2] [advanced] qstat -- show the status of Grid Engine jobs and queues
 
 `$ qstat`
 
-## [3-3] [advanced] qsub -- submit a batch job to Oracle Grid Engine
+## [3-3] [advanced] qsub -- submit a batch job to Grid Engine
 
 `$ qsub script.sh`
 
-## [3-4] [advanced] qdel -- delete Oracle Grid Engine jobs from queues
+## [3-4] [advanced] qdel -- delete Grid Engine jobs from queues
 
 `$ qdel <JOBID>`
 
