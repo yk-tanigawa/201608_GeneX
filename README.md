@@ -251,6 +251,10 @@ Host <<<nickname_of_your_server>>>
 
 `$ qsub script.sh`
 
+- a link to a sample scripts can be found in this page (on the top)
+
+
+
 ## [3-4] [advanced] qdel -- delete Grid Engine jobs from queues
 
 `$ qdel <JOBID>`
